@@ -1,13 +1,11 @@
-<script setup lang="ts">
-import { RouterLink, RouterView } from 'vue-router'
-</script>
+<script setup lang="ts"></script>
 
 <template>
   <header>
     <div class="wrapper">
       <nav>
-        <RouterLink to="/">Home</RouterLink>
-        <RouterLink to="/about">About</RouterLink>
+        <RouterLink to="/">Projects</RouterLink>
+        <RouterLink to="/project">Tsks</RouterLink>
       </nav>
     </div>
   </header>
@@ -41,6 +39,10 @@ header {
         color: #333;
         font-weight: bold;
         transition: color 0.3s ease;
+
+        &:active {
+          border-bottom: 1px solid hsla(160, 100%, 37%);
+        }
 
         &:hover {
           color: hsla(160, 100%, 37%);
