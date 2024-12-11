@@ -1,0 +1,18 @@
+{
+  "projects": [
+    {
+      "id": "03a3",
+      "projectName": "Project Alpha",
+      "taskCount": 5,
+      "status": "Active",
+      "creationDate": "2024-01-15"
+    },
+    {
+      "id": "1394",
+      "projectName": "Project Alphassss",
+      "taskCount": 5,
+      "status": "Active",
+      "creationDate": "2024-01-15"
+    }
+  ]
+}

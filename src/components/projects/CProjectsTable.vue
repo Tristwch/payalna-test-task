@@ -19,8 +19,9 @@
   </a-table>
 </template>
 <script lang="ts" setup>
-import { ref } from 'vue'
+import { onMounted, ref } from 'vue'
 import type { TableColumnsType } from 'ant-design-vue'
+import { getProjects } from '../../services/projects'
 
 const columns = ref<TableColumnsType>([
   {
@@ -60,32 +61,27 @@ const columns = ref<TableColumnsType>([
     width: 150,
   },
 ])
-const data = [
-  {
-    key: '1',
-    projectId: 'P001',
-    projectName: 'Project Alpha',
-    taskCount: 5,
-    status: 'Active',
-    creationDate: '2024-01-15',
-  },
-  {
-    key: '2',
-    projectId: 'P002',
-    projectName: 'Project Beta',
-    taskCount: 3,
-    status: 'Inactive',
-    creationDate: '2024-03-10',
-  },
-  {
-    key: '3',
-    projectId: 'P003',
-    projectName: 'Project Gamma',
-    taskCount: 8,
-    status: 'Active',
-    creationDate: '2024-06-22',
-  },
-]
+const data = ref([])
+
+async function fetchProjects() {
+  try {
+    const projects = await getProjects()
+    data.value = projects.map((project) => ({
+      key: project.id,
+      projectId: project.id,
+      projectName: project.projectName,
+      taskCount: project.taskCount,
+      status: project.status,
+      creationDate: project.creationDate,
+    }))
+  } catch (error) {
+    console.error('Failed to fetch projects:', error)
+  }
+}
+
+onMounted(() => {
+  fetchProjects()
+})
 
 function handleResizeColumn(w, col) {
   col.width = w
