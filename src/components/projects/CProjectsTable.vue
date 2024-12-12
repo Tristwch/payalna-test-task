@@ -1,5 +1,9 @@
 <template>
-  <a-table :columns="columns" :data-source="data" @resizeColumn="handleResizeColumn">
+  <a-table
+    :columns="columns"
+    :data-source="projectsStore.projects"
+    @resizeColumn="handleResizeColumn"
+  >
     <template #headerCell="{ column }">
       <template v-if="column.key === 'name'">
         <span>
@@ -15,27 +19,43 @@
           <RouterLink :to="`/projects/${record.projectId}`"> {{ record.projectName }} </RouterLink>
         </div>
       </template>
+      <template v-if="column.key === 'action'"
+        ><a-dropdown :placement="'left'">
+          <a class="ant-dropdown-link" @click.prevent>
+            <EllipsisOutlined />
+          </a>
+          <template #overlay>
+            <a-menu>
+              <a-menu-item @click="openModal(record)"> Редагувати </a-menu-item>
+              <a-menu-item @click="projectsStore.deleteProject(record.id)"> Видалити </a-menu-item>
+            </a-menu>
+          </template>
+        </a-dropdown>
+      </template>
     </template>
   </a-table>
+  <CProjectModal />
 </template>
 <script lang="ts" setup>
-import { ref } from 'vue'
+import { onMounted, ref } from 'vue'
 import type { TableColumnsType } from 'ant-design-vue'
-
+import { useProjectsStore } from '../store/projects'
+import { EllipsisOutlined } from '@ant-design/icons-vue'
+import CProjectModal from './CProjectModal.vue'
 const columns = ref<TableColumnsType>([
-  {
-    title: 'ID проекту',
-    dataIndex: 'projectId',
-    key: 'projectId',
-    resizable: true,
-    width: 150,
-  },
   {
     title: 'Назва проекту',
     dataIndex: 'projectName',
     key: 'projectName',
     resizable: true,
     width: 200,
+  },
+  {
+    title: 'ID проекту',
+    dataIndex: 'id',
+    key: 'projectId',
+    resizable: true,
+    width: 150,
   },
   {
     title: 'Кількість завдань',
@@ -59,33 +79,22 @@ const columns = ref<TableColumnsType>([
     resizable: true,
     width: 150,
   },
+  {
+    title: '',
+    key: 'action',
+    dataIndex: 'action',
+    width: 50,
+  },
 ])
-const data = [
-  {
-    key: '1',
-    projectId: 'P001',
-    projectName: 'Project Alpha',
-    taskCount: 5,
-    status: 'Active',
-    creationDate: '2024-01-15',
-  },
-  {
-    key: '2',
-    projectId: 'P002',
-    projectName: 'Project Beta',
-    taskCount: 3,
-    status: 'Inactive',
-    creationDate: '2024-03-10',
-  },
-  {
-    key: '3',
-    projectId: 'P003',
-    projectName: 'Project Gamma',
-    taskCount: 8,
-    status: 'Active',
-    creationDate: '2024-06-22',
-  },
-]
+const projectsStore = useProjectsStore()
+
+onMounted(() => {
+  projectsStore.getAllProjects()
+})
+
+function openModal(record) {
+  projectsStore.openModal('edit', record)
+}
 
 function handleResizeColumn(w, col) {
   col.width = w
