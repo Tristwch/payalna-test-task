@@ -1,5 +1,9 @@
 <template>
-  <a-table :columns="columns" :data-source="data" @resizeColumn="handleResizeColumn">
+  <a-table
+    :columns="columns"
+    :data-source="projectsStore.projects"
+    @resizeColumn="handleResizeColumn"
+  >
     <template #headerCell="{ column }">
       <template v-if="column.key === 'name'">
         <span>
@@ -15,28 +19,43 @@
           <RouterLink :to="`/projects/${record.projectId}`"> {{ record.projectName }} </RouterLink>
         </div>
       </template>
+      <template v-if="column.key === 'action'"
+        ><a-dropdown :placement="'left'">
+          <a class="ant-dropdown-link" @click.prevent>
+            <EllipsisOutlined />
+          </a>
+          <template #overlay>
+            <a-menu>
+              <a-menu-item @click="openModal(record)"> Редагувати </a-menu-item>
+              <a-menu-item @click="projectsStore.deleteProject(record.id)"> Видалити </a-menu-item>
+            </a-menu>
+          </template>
+        </a-dropdown>
+      </template>
     </template>
   </a-table>
+  <CProjectModal />
 </template>
 <script lang="ts" setup>
 import { onMounted, ref } from 'vue'
 import type { TableColumnsType } from 'ant-design-vue'
-import { getProjects } from '../../services/projects'
-
+import { useProjectsStore } from '../store/projects'
+import { EllipsisOutlined } from '@ant-design/icons-vue'
+import CProjectModal from './CProjectModal.vue'
 const columns = ref<TableColumnsType>([
-  {
-    title: 'ID проекту',
-    dataIndex: 'projectId',
-    key: 'projectId',
-    resizable: true,
-    width: 150,
-  },
   {
     title: 'Назва проекту',
     dataIndex: 'projectName',
     key: 'projectName',
     resizable: true,
     width: 200,
+  },
+  {
+    title: 'ID проекту',
+    dataIndex: 'id',
+    key: 'projectId',
+    resizable: true,
+    width: 150,
   },
   {
     title: 'Кількість завдань',
@@ -60,28 +79,22 @@ const columns = ref<TableColumnsType>([
     resizable: true,
     width: 150,
   },
+  {
+    title: '',
+    key: 'action',
+    dataIndex: 'action',
+    width: 50,
+  },
 ])
-const data = ref([])
-
-async function fetchProjects() {
-  try {
-    const projects = await getProjects()
-    data.value = projects.map((project) => ({
-      key: project.id,
-      projectId: project.id,
-      projectName: project.projectName,
-      taskCount: project.taskCount,
-      status: project.status,
-      creationDate: project.creationDate,
-    }))
-  } catch (error) {
-    console.error('Failed to fetch projects:', error)
-  }
-}
+const projectsStore = useProjectsStore()
 
 onMounted(() => {
-  fetchProjects()
+  projectsStore.getAllProjects()
 })
+
+function openModal(record) {
+  projectsStore.openModal('edit', record)
+}
 
 function handleResizeColumn(w, col) {
   col.width = w

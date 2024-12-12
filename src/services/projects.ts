@@ -6,14 +6,28 @@ export const getProjects = async (): Promise<IProjects[]> => {
   return response.data
 }
 
-export const createProject = async (): Promise<void> => {
-  await axiosApiInstance.get('projects')
+export const createProject = async (project: {
+  projectName: string
+  description?: string
+}): Promise<void> => {
+  const payload = {
+    projectName: project.projectName,
+    description: project.description || '',
+    creationDate: new Date().toISOString().split('T')[0],
+    taskCount: 0,
+    status: 'Active',
+  }
+
+  await axiosApiInstance.post('projects', payload)
 }
 
-export const updateProject = async (): Promise<void> => {
-  await axiosApiInstance.get('projects')
+export const updateProject = async (
+  id: string,
+  updatedProject: Partial<IProjects>,
+): Promise<void> => {
+  await axiosApiInstance.patch(`projects/${id}`, updatedProject)
 }
 
-export const deleteProject = async (): Promise<void> => {
-  await axiosApiInstance.get('projects')
+export const deleteProject = async (id: string): Promise<void> => {
+  await axiosApiInstance.delete(`projects/${id}`)
 }
