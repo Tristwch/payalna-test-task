@@ -42,6 +42,10 @@ const columns = ref<TableColumnsType<IProjects>>([
     key: 'projectName',
     resizable: true,
     width: 200,
+    sorter: {
+      compare: (a, b) => a.projectName.localeCompare(b.projectName),
+      multiple: 1,
+    },
   },
   {
     title: 'ID проекту',
@@ -49,6 +53,10 @@ const columns = ref<TableColumnsType<IProjects>>([
     key: 'projectId',
     resizable: true,
     width: 150,
+    sorter: {
+      compare: (a, b) => a.id.localeCompare(b.id),
+      multiple: 2,
+    },
   },
   {
     title: 'Кількість завдань',
@@ -57,6 +65,10 @@ const columns = ref<TableColumnsType<IProjects>>([
     resizable: true,
     width: 200,
     minWidth: 100,
+    sorter: {
+      compare: (a, b) => b.taskCount - a.taskCount,
+      multiple: 3,
+    },
   },
   {
     title: 'Статус',
@@ -64,6 +76,10 @@ const columns = ref<TableColumnsType<IProjects>>([
     key: 'status',
     resizable: true,
     width: 100,
+    sorter: {
+      compare: (a, b) => a.status.localeCompare(b.status),
+      multiple: 4,
+    },
   },
   {
     title: 'Дата створення',
@@ -71,6 +87,12 @@ const columns = ref<TableColumnsType<IProjects>>([
     key: 'creationDate',
     resizable: true,
     width: 150,
+    sorter: {
+      compare: (a, b) => {
+        return new Date(a.creationDate).getTime() - new Date(b.creationDate).getTime()
+      },
+      multiple: 3,
+    },
   },
   {
     title: '',

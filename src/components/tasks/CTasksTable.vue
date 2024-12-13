@@ -43,19 +43,27 @@ const tasksStore = useTasksStore()
 
 const columns = ref<TableColumnsType<ITasks>>([
   {
+    title: 'Назва завдання',
+    dataIndex: 'taskName',
+    key: 'taskName',
+    resizable: true,
+    minWidth: 100,
+    sorter: {
+      compare: (a, b) => a.taskName.localeCompare(b.taskName),
+      multiple: 1,
+    },
+  },
+  {
     title: 'ID',
     dataIndex: 'id',
     key: 'id',
     width: 80,
     resizable: true,
     minWidth: 100,
-  },
-  {
-    title: 'Назва завдання',
-    dataIndex: 'taskName',
-    key: 'taskName',
-    resizable: true,
-    minWidth: 100,
+    sorter: {
+      compare: (a, b) => a.id.localeCompare(b.id),
+      multiple: 2,
+    },
   },
   {
     title: 'Виконавець',
@@ -63,6 +71,10 @@ const columns = ref<TableColumnsType<ITasks>>([
     key: 'assignee',
     resizable: true,
     minWidth: 100,
+    sorter: {
+      compare: (a, b) => a.assignee.localeCompare(b.assignee),
+      multiple: 3,
+    },
   },
   {
     title: 'Статус',
@@ -70,6 +82,10 @@ const columns = ref<TableColumnsType<ITasks>>([
     key: 'status',
     resizable: true,
     minWidth: 100,
+    sorter: {
+      compare: (a, b) => a.status.localeCompare(b.status),
+      multiple: 4,
+    },
   },
   {
     title: 'Термін виконання',
@@ -77,6 +93,12 @@ const columns = ref<TableColumnsType<ITasks>>([
     key: 'dueDate',
     resizable: true,
     minWidth: 100,
+    sorter: {
+      compare: (a, b) => {
+        return new Date(a.dueDate).getTime() - new Date(b.dueDate).getTime()
+      },
+      multiple: 5,
+    },
   },
   {
     title: '',
