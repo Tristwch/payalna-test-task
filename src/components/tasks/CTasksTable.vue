@@ -6,25 +6,18 @@
     :pagination="false"
   >
     <template #bodyCell="{ column, record }">
-      <template v-if="column.key === 'status'">
-        <a-tag :color="record.status === 'Активний' ? 'green' : 'blue'">
-          {{ record.status }}
-        </a-tag>
-      </template>
-      <template v-if="column.key === 'toDo' && record.status === 'To Do'">
-        <a-tag color="lightgray">
-          {{ record.status }}
-        </a-tag>
-      </template>
-      <template v-if="column.key === 'inProgress' && record.status === 'In Progress'">
-        <a-tag color="green">
-          {{ record.status }}
-        </a-tag>
-      </template>
-      <template v-if="column.key === 'done' && record.status === 'Done'">
-        <a-tag color="blue">
-          {{ record.status }}
-        </a-tag>
+      <template v-if="['toDo', 'inProgress', 'done'].includes(column.key)">
+        <div class="droppable-column" @dragover.prevent @drop="handleDrop($event, column.title)">
+          <a-tag
+            v-if="record.status === column.title"
+            :color="getColorByKey(column.key)"
+            draggable="true"
+            @dragstart="handleDragStart(record)"
+            :class="column.key"
+          >
+            {{ record.status }}
+          </a-tag>
+        </div>
       </template>
 
       <template v-if="column.key === 'action'">
@@ -49,7 +42,7 @@
 </template>
 
 <script lang="ts" setup>
-import { onMounted, ref, reactive } from 'vue'
+import { onMounted, ref } from 'vue'
 import { useRoute } from 'vue-router'
 import { useTasksStore } from '../../stores/tasks'
 import { EllipsisOutlined } from '@ant-design/icons-vue'
@@ -60,6 +53,7 @@ import type { ITask } from '../../types/tasks'
 const route = useRoute()
 const projectId = ref(route.params.id as string)
 const tasksStore = useTasksStore()
+const draggedTask = ref<ITask | null>(null)
 
 const columns = ref<TableColumnsType<ITask>>([
   {
@@ -67,6 +61,7 @@ const columns = ref<TableColumnsType<ITask>>([
     dataIndex: 'taskName',
     key: 'taskName',
     resizable: true,
+    width: 100,
     minWidth: 100,
     sorter: {
       compare: (a, b) => a.taskName.localeCompare(b.taskName),
@@ -78,6 +73,7 @@ const columns = ref<TableColumnsType<ITask>>([
     dataIndex: 'id',
     key: 'id',
     resizable: true,
+    width: 100,
     minWidth: 100,
     sorter: {
       compare: (a, b) => a.id.localeCompare(b.id),
@@ -89,6 +85,7 @@ const columns = ref<TableColumnsType<ITask>>([
     dataIndex: 'assignee',
     key: 'assignee',
     resizable: true,
+    width: 100,
     filters: [
       { text: 'Олександр', value: 'Олександр' },
       { text: 'Андрій', value: 'Андрій' },
@@ -104,6 +101,7 @@ const columns = ref<TableColumnsType<ITask>>([
     dataIndex: 'status',
     key: 'status',
     resizable: true,
+    width: 100,
     minWidth: 100,
     filters: [
       { text: 'To Do', value: 'To Do' },
@@ -116,15 +114,23 @@ const columns = ref<TableColumnsType<ITask>>([
       multiple: 4,
     },
     children: [
-      { title: 'To Do', dataIndex: 'doDo', key: 'toDo', resizable: true, minWidth: 100 },
+      {
+        title: 'To Do',
+        dataIndex: 'doDo',
+        key: 'toDo',
+        resizable: true,
+        minWidth: 100,
+        width: 100,
+      },
       {
         title: 'In progress',
         dataIndex: 'inProgress',
         key: 'inProgress',
         resizable: true,
+        width: 100,
         minWidth: 100,
       },
-      { title: 'Done', dataIndex: 'done', key: 'done', resizable: true, minWidth: 100 },
+      { title: 'Done', dataIndex: 'done', key: 'done', resizable: true, minWidth: 100, width: 100 },
     ],
   },
   {
@@ -152,6 +158,31 @@ onMounted(() => {
   })
 })
 
+function handleDragStart(task: ITask) {
+  draggedTask.value = task
+}
+
+function handleDrop(event: DragEvent, newStatus: string) {
+  if (!draggedTask.value) return
+
+  const updatedTask = { ...draggedTask.value, status: newStatus }
+  tasksStore.updateTask(draggedTask.value.id, updatedTask, projectId.value)
+  draggedTask.value = null
+}
+
+function getColorByKey(status: string): string {
+  switch (status) {
+    case 'toDo':
+      return 'lightgray'
+    case 'inProgress':
+      return 'green'
+    case 'done':
+      return 'blue'
+    default:
+      return 'default'
+  }
+}
+
 function handleResizeColumn(width: number, col: (typeof columns.value)[0]): void {
   col.width = width
 
@@ -173,5 +204,15 @@ function openModal(record: ITasks): void {
 .highlight {
   background-color: rgb(255, 192, 105);
   padding: 0px;
+}
+
+.droppable-column {
+  min-height: 30px;
+
+  padding: 5px;
+}
+
+.ant-tag {
+  cursor: pointer;
 }
 </style>

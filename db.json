@@ -46,7 +46,7 @@
       "id": "7d2f",
       "taskName": "test",
       "assignee": "Олександр",
-      "status": "In Progress",
+      "status": "To Do",
       "dueDate": "2024-12-29",
       "projectId": "a576"
     },
@@ -54,7 +54,7 @@
       "id": "1821",
       "taskName": "иви",
       "assignee": "Андрій",
-      "status": "To Do",
+      "status": "In progress",
       "dueDate": "2024-12-14",
       "projectId": "a576"
     },
@@ -72,6 +72,22 @@
       "assignee": "Олександр",
       "status": "Done",
       "dueDate": "2024-12-14",
+      "projectId": "a576"
+    },
+    {
+      "id": "6f95",
+      "taskName": "test",
+      "assignee": "Олександр",
+      "status": "In progress",
+      "dueDate": "2024-12-27",
+      "projectId": "a576"
+    },
+    {
+      "id": "65c4",
+      "taskName": "test",
+      "assignee": "Олександр",
+      "status": "To Do",
+      "dueDate": "2024-12-27",
       "projectId": "a576"
     }
   ]
