@@ -1,36 +1,83 @@
 {
   "projects": [
     {
-      "projectName": "Project Alpha 1",
-      "description": "test",
       "id": "03a3",
-      "taskCount": 5,
-      "status": "Active",
-      "creationDate": "2024-01-15"
-    },
-    {
-      "id": "1394",
-      "projectName": "Project Alpha 2",
-      "taskCount": 5,
+      "projectName": "Project Alpha 1",
+      "taskCount": 0,
       "status": "Active",
       "creationDate": "2024-01-15",
       "description": ""
     },
     {
+      "id": "1394",
+      "projectName": "Project Alpha 2",
+      "taskCount": 0,
+      "status": "Active",
+      "creationDate": "2024-01-15"
+    },
+    {
       "id": "a576",
       "projectName": "2323",
-      "description": "",
-      "creationDate": "2024-12-11",
-      "taskCount": 0,
-      "status": "Active"
+      "taskCount": 1,
+      "status": "Active",
+      "creationDate": "2024-12-11"
     },
     {
       "id": "ade7",
       "projectName": "dsds",
-      "description": "sdsd",
+      "taskCount": 0,
+      "status": "Active",
+      "creationDate": "2024-12-12"
+    },
+    {
+      "id": "6656",
+      "projectName": "1221",
+      "description": "",
       "creationDate": "2024-12-12",
       "taskCount": 0,
       "status": "Active"
+    },
+    {
+      "id": "28c0",
+      "projectName": "иви",
+      "description": "виви",
+      "creationDate": "2024-12-12",
+      "taskCount": 0,
+      "status": "Active"
+    },
+    {
+      "id": "245a",
+      "projectName": "sdsdsd",
+      "description": "sds",
+      "creationDate": "2024-12-13",
+      "taskCount": 0,
+      "status": "Active"
+    }
+  ],
+  "tasks": [
+    {
+      "id": "55a8",
+      "taskName": "123",
+      "assignee": "sdsd",
+      "status": "Pending",
+      "dueDate": "2024-12-31",
+      "projectId": "a576"
+    },
+    {
+      "id": "40d3",
+      "taskName": "dsds",
+      "assignee": "dsds",
+      "status": "Pending",
+      "dueDate": "2024-12-31",
+      "projectId": "a576"
+    },
+    {
+      "id": "5c45",
+      "taskName": "test",
+      "assignee": "фу",
+      "status": "Pending",
+      "dueDate": "2024-12-20",
+      "projectId": "a576"
     }
   ]
 }

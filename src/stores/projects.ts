@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia'
-import { getProjects, createProject, deleteProject, updateProject } from '../../services/projects'
+import { getProjects, createProject, deleteProject, updateProject } from '../services/projects'
 import type { IProjects } from '@/types/projects'
 
 export const useProjectsStore = defineStore('projects', {
@@ -36,6 +36,7 @@ export const useProjectsStore = defineStore('projects', {
       try {
         await updateProject(id, updatedProject)
         await this.getAllProjects()
+        this.projectToEdit = null
       } catch (error) {
         console.error('Failed to update project:', error)
       }
@@ -50,11 +51,15 @@ export const useProjectsStore = defineStore('projects', {
     },
     openModal(mode: 'create' | 'edit', project?: IProjects) {
       this.modalMode = mode
+
       if (mode === 'edit' && project) {
         this.projectToEdit = project
-      } else {
+      }
+
+      if (mode === 'create') {
         this.projectToEdit = null
       }
+
       this.isModalOpen = true
     },
     closeModal() {

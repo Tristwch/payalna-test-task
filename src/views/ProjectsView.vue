@@ -11,7 +11,7 @@
 </template>
 
 <script lang="ts" setup>
-import { useProjectsStore } from '../components/store/projects'
+import { useProjectsStore } from '../stores/projects'
 import CProjectsTable from '../components/projects/CProjectsTable.vue'
 import CProjectModal from '../components/projects/CProjectModal.vue'
 

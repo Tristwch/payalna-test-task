@@ -5,6 +5,8 @@
     :ok-text="projectsStore.modalMode === 'edit' ? 'Зберегти' : 'Створити'"
     cancel-text="Скасувати"
     @ok="onOk"
+    @cancel="onClose"
+    :destroy-on-close="true"
   >
     <a-form ref="formRef" :model="formState" layout="vertical" name="form_in_modal">
       <a-form-item
@@ -23,8 +25,8 @@
 
 <script lang="ts" setup>
 import { ref, reactive, watch } from 'vue'
-import { useProjectsStore } from '../store/projects'
-import type { FormInstance } from 'ant-design-vue'
+import { useProjectsStore } from '../../stores/projects'
+import { Form, FormInstance } from 'ant-design-vue'
 
 const projectsStore = useProjectsStore()
 const formRef = ref<FormInstance>()
@@ -32,7 +34,7 @@ const formState = reactive({
   projectName: '',
   description: '',
 })
-
+const { resetFields } = Form.useForm(formState)
 watch(
   () => projectsStore.projectToEdit,
   (newProject) => {
@@ -62,5 +64,11 @@ const onOk = async () => {
     .catch((info) => {
       console.log('Validation failed:', info)
     })
+}
+
+const onClose = () => {
+  projectsStore.closeModal()
+  formRef.value.resetFields()
+  resetFields()
 }
 </script>
