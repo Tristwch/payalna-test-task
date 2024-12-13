@@ -32,17 +32,52 @@ import { useRoute } from 'vue-router'
 import { useTasksStore } from '../../stores/tasks'
 import { EllipsisOutlined } from '@ant-design/icons-vue'
 import CTasksModal from './CTasksModal.vue'
+import { TableColumnsType } from 'ant-design-vue'
+
+import { ITasks } from '../../types/tasks'
+
 const route = useRoute()
 const projectId = ref(route.params.id as string)
 
 const tasksStore = useTasksStore()
 
-const columns = ref([
-  { title: 'ID', dataIndex: 'id', key: 'id', width: 80 },
-  { title: 'Назва завдання', dataIndex: 'taskName', key: 'taskName' },
-  { title: 'Виконавець', dataIndex: 'assignee', key: 'assignee' },
-  { title: 'Статус', dataIndex: 'status', key: 'status' },
-  { title: 'Термін виконання', dataIndex: 'dueDate', key: 'dueDate' },
+const columns = ref<TableColumnsType<ITasks>>([
+  {
+    title: 'ID',
+    dataIndex: 'id',
+    key: 'id',
+    width: 80,
+    resizable: true,
+    minWidth: 100,
+  },
+  {
+    title: 'Назва завдання',
+    dataIndex: 'taskName',
+    key: 'taskName',
+    resizable: true,
+    minWidth: 100,
+  },
+  {
+    title: 'Виконавець',
+    dataIndex: 'assignee',
+    key: 'assignee',
+    resizable: true,
+    minWidth: 100,
+  },
+  {
+    title: 'Статус',
+    dataIndex: 'status',
+    key: 'status',
+    resizable: true,
+    minWidth: 100,
+  },
+  {
+    title: 'Термін виконання',
+    dataIndex: 'dueDate',
+    key: 'dueDate',
+    resizable: true,
+    minWidth: 100,
+  },
   {
     title: '',
     key: 'action',
@@ -53,13 +88,34 @@ const columns = ref([
 
 onMounted(() => {
   tasksStore.getAllTasks(projectId.value)
+
+  const savedWidths = JSON.parse(localStorage.getItem('tasksTableColumnWidths') || '{}') as Record<
+    string,
+    number
+  >
+  columns.value.forEach((col) => {
+    if (savedWidths[col.key] !== undefined) {
+      col.width = savedWidths[col.key]
+    }
+    if (!col.width) {
+      col.width = 150
+    }
+  })
 })
 
-function openModal(record) {
+function openModal(record: ITasks): void {
   tasksStore.openModal('edit', record)
 }
 
-function handleResizeColumn(w, col) {
-  col.width = w
+function handleResizeColumn(width: number, col: (typeof columns.value)[0]): void {
+  col.width = width
+
+  const savedWidths = JSON.parse(localStorage.getItem('tasksTableColumnWidths') || '{}') as Record<
+    string,
+    number
+  >
+  savedWidths[col.key] = width
+
+  localStorage.setItem('tasksTableColumnWidths', JSON.stringify(savedWidths))
 }
 </script>
