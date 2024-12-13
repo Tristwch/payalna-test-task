@@ -6,6 +6,19 @@
     :pagination="false"
   >
     <template #bodyCell="{ column, record }">
+      <template v-if="column.key === 'taskName'">
+        <div
+          class="drag-handle"
+          draggable="true"
+          @dragstart="handleRowDragStart(record)"
+          @dragover.prevent
+          @drop="handleRowDrop(record)"
+        >
+          <HolderOutlined class="drag-icon" />
+          {{ record.taskName }}
+        </div>
+      </template>
+
       <template v-if="['toDo', 'inProgress', 'done'].includes(column.key)">
         <div class="droppable-column" @dragover.prevent @drop="handleDrop($event, column.title)">
           <a-tag
@@ -45,7 +58,7 @@
 import { onMounted, ref } from 'vue'
 import { useRoute } from 'vue-router'
 import { useTasksStore } from '../../stores/tasks'
-import { EllipsisOutlined } from '@ant-design/icons-vue'
+import { EllipsisOutlined, HolderOutlined } from '@ant-design/icons-vue'
 import CTasksModal from './CTasksModal.vue'
 import type { TableColumnsType } from 'ant-design-vue'
 import type { ITask } from '../../types/tasks'
@@ -54,6 +67,7 @@ const route = useRoute()
 const projectId = ref(route.params.id as string)
 const tasksStore = useTasksStore()
 const draggedTask = ref<ITask | null>(null)
+const draggedRow = ref<ITask | null>(null)
 
 const columns = ref<TableColumnsType<ITask>>([
   {
@@ -158,6 +172,27 @@ onMounted(() => {
   })
 })
 
+function handleRowDragStart(record: ITask) {
+  draggedRow.value = record
+}
+
+function handleRowDrop(targetRecord: ITask) {
+  if (!draggedRow.value || draggedRow.value.id === targetRecord.id) return
+
+  const tasks = [...tasksStore.tasks]
+  const draggedIndex = tasks.findIndex((task) => task.id === draggedRow.value?.id)
+  const targetIndex = tasks.findIndex((task) => task.id === targetRecord.id)
+
+  if (draggedIndex !== -1 && targetIndex !== -1) {
+    const [movedRow] = tasks.splice(draggedIndex, 1)
+    tasks.splice(targetIndex, 0, movedRow)
+
+    tasksStore.setTasks(tasks)
+  }
+
+  draggedRow.value = null
+}
+
 function handleDragStart(task: ITask) {
   draggedTask.value = task
 }
@@ -195,7 +230,7 @@ function handleResizeColumn(width: number, col: (typeof columns.value)[0]): void
   localStorage.setItem('tasksTableColumnWidths', JSON.stringify(savedWidths))
 }
 
-function openModal(record: ITasks): void {
+function openModal(record: ITask): void {
   tasksStore.openModal('edit', record)
 }
 </script>
