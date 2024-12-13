@@ -77,7 +77,7 @@ const columns = ref<TableColumnsType<ITask>>([
       { text: 'Олександр', value: 'Олександр' },
       { text: 'Андрій', value: 'Андрій' },
     ],
-    onFilter: (value, record) => record.status.indexOf(value) === 0,
+    onFilter: (value, record) => record.assignee.indexOf(value) === 0,
     sorter: {
       compare: (a, b) => a.assignee.localeCompare(b.assignee),
       multiple: 3,

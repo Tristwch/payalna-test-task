@@ -1,9 +1,9 @@
 <template>
   <a-modal
     v-model:open="tasksStore.isModalOpen"
-    :title="tasksStore.modalMode === 'edit' ? 'Edit Task' : 'Create Task'"
-    :ok-text="tasksStore.modalMode === 'edit' ? 'Save' : 'Create'"
-    cancel-text="Cancel"
+    :title="tasksStore.modalMode === 'edit' ? 'Редагувати завдання' : 'Створити завдання'"
+    :ok-text="tasksStore.modalMode === 'edit' ? 'Зберегти' : 'Створити'"
+    cancel-text="Скасувати"
     @ok="onOk"
     @cancel="onClose"
     :destroy-on-close="true"
@@ -11,24 +11,32 @@
     <a-form ref="formRef" :model="formState" layout="vertical">
       <a-form-item
         name="taskName"
-        label="Task Name"
+        label="Назва завдання"
         :rules="[{ required: true, message: 'Please enter the task name!' }]"
       >
         <a-input v-model:value="formState.taskName" />
       </a-form-item>
       <a-form-item
         name="assignee"
-        label="Assignee"
-        :rules="[{ required: true, message: 'Please enter the assignee!' }]"
+        label="Виконавець"
+        :rules="[{ required: true, message: 'Please select the assignee!' }]"
       >
-        <a-input v-model:value="formState.assignee" />
+        <a-select v-model:value="formState.assignee" placeholder="Select assignee">
+          <a-select-option value="Олександр">Олександр</a-select-option>
+          <a-select-option value="Андрій">Андрій</a-select-option>
+        </a-select>
       </a-form-item>
+
       <a-form-item
         name="dueDate"
-        label="Due Date"
+        label="Термін виконання"
         :rules="[{ required: true, message: 'Please enter the due date!' }]"
       >
-        <a-date-picker v-model:value="formState.dueDate" format="YYYY-MM-DD" />
+        <a-date-picker
+          v-model:value="formState.dueDate"
+          format="YYYY-MM-DD"
+          :disabled-date="(current) => current && current.isBefore(dayjs().startOf('day'))"
+        />
       </a-form-item>
     </a-form>
   </a-modal>
@@ -100,3 +108,9 @@ const resetForm = () => {
   formState.assignee = ''
 }
 </script>
+
+<style lang="scss" scoped>
+.ant-picker {
+  width: 100%;
+}
+</style>
