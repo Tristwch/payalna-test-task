@@ -19,6 +19,7 @@ export const useProjectsStore = defineStore('projects', {
           taskCount: project.taskCount,
           status: project.status,
           creationDate: project.creationDate,
+          projectDescription: project.projectDescription,
         }))
       } catch (error) {
         console.error('Failed to fetch projects:', error)
