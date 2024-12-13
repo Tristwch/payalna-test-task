@@ -4,8 +4,8 @@
   <header>
     <div class="wrapper">
       <nav>
-        <RouterLink to="/">Projects</RouterLink>
-        <RouterLink to="/project">Tsks</RouterLink>
+        <RouterLink to="/project">Головна</RouterLink>
+        <RouterLink to="/">Проекти</RouterLink>
       </nav>
     </div>
   </header>
@@ -40,12 +40,8 @@ header {
         font-weight: bold;
         transition: color 0.3s ease;
 
-        &:active {
-          border-bottom: 1px solid hsla(160, 100%, 37%);
-        }
-
         &:hover {
-          color: hsla(160, 100%, 37%);
+          color: #1677ff;
         }
       }
     }

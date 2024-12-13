@@ -4,7 +4,7 @@
       "id": "03a3",
       "projectName": "Project Alpha 1",
       "taskCount": 0,
-      "status": "Active",
+      "status": "Завершений",
       "creationDate": "2024-01-15",
       "description": ""
     },
@@ -12,22 +12,24 @@
       "id": "1394",
       "projectName": "Project Alpha 2",
       "taskCount": 0,
-      "status": "Active",
+      "status": "Активний",
       "creationDate": "2024-01-15"
     },
     {
       "id": "a576",
-      "projectName": "2323",
+      "projectName": "1234564",
       "taskCount": 1,
-      "status": "Active",
-      "creationDate": "2024-12-11"
+      "status": "Активний",
+      "creationDate": "2024-12-11",
+      "description": ""
     },
     {
       "id": "ade7",
-      "projectName": "dsds",
+      "projectName": "123",
       "taskCount": 0,
-      "status": "Active",
-      "creationDate": "2024-12-12"
+      "status": "Завершений",
+      "creationDate": "2024-12-12",
+      "description": ""
     },
     {
       "id": "6656",
@@ -35,15 +37,7 @@
       "description": "",
       "creationDate": "2024-12-12",
       "taskCount": 0,
-      "status": "Active"
-    },
-    {
-      "id": "245a",
-      "projectName": "sdsdsd",
-      "description": "sds",
-      "creationDate": "2024-12-13",
-      "taskCount": 0,
-      "status": "Active"
+      "status": "Активний"
     },
     {
       "id": "7a39",
@@ -51,23 +45,55 @@
       "description": "",
       "creationDate": "2024-12-13",
       "taskCount": 0,
-      "status": "Active"
+      "status": "Завершений"
+    },
+    {
+      "id": "c991",
+      "projectName": "Project Alpha 45",
+      "description": "",
+      "creationDate": "2024-12-13",
+      "taskCount": 0,
+      "status": "Активний"
+    },
+    {
+      "id": "5788",
+      "projectName": "Project Alpha 4",
+      "description": "",
+      "creationDate": "2024-12-13",
+      "taskCount": 0,
+      "status": "Завершений"
+    },
+    {
+      "id": "3350",
+      "projectName": "укккывы",
+      "description": "",
+      "creationDate": "2024-12-13",
+      "taskCount": 0,
+      "status": "Активний"
+    },
+    {
+      "id": "0583",
+      "projectName": "222",
+      "description": "",
+      "creationDate": "2024-12-13",
+      "taskCount": 0,
+      "status": "Завершений"
     }
   ],
   "tasks": [
     {
       "id": "55a8",
-      "taskName": "123",
+      "taskName": "123sds",
       "assignee": "sdsd",
-      "status": "Pending",
-      "dueDate": "2024-12-31",
+      "status": "Активний",
+      "dueDate": "2024-12-16",
       "projectId": "a576"
     },
     {
       "id": "40d3",
-      "taskName": "dsds",
+      "taskName": "123",
       "assignee": "dsds",
-      "status": "Pending",
+      "status": "Завершений",
       "dueDate": "2024-12-31",
       "projectId": "a576"
     },
@@ -75,7 +101,7 @@
       "id": "5c45",
       "taskName": "test",
       "assignee": "фу",
-      "status": "Pending",
+      "status": "Завершений",
       "dueDate": "2024-12-20",
       "projectId": "a576"
     },
@@ -83,9 +109,41 @@
       "id": "2f54",
       "taskName": "test",
       "assignee": "аавав",
-      "status": "Pending",
+      "status": "Завершений",
       "dueDate": "2024-12-15",
       "projectId": "03a3"
+    },
+    {
+      "id": "69d9",
+      "taskName": "test",
+      "assignee": "dsds",
+      "status": "Завершений",
+      "dueDate": "2024-12-14",
+      "projectId": "a576"
+    },
+    {
+      "id": "f9cf",
+      "taskName": "test",
+      "assignee": "dsds",
+      "status": "Завершений",
+      "dueDate": "2024-12-17",
+      "projectId": "1394"
+    },
+    {
+      "id": "2e1f",
+      "taskName": "test",
+      "assignee": "dsdsds",
+      "status": "Завершений",
+      "dueDate": "2024-12-19",
+      "projectId": "a576"
+    },
+    {
+      "id": "5214",
+      "taskName": "sd",
+      "assignee": "dsds",
+      "status": "Завершений",
+      "dueDate": "2024-12-12",
+      "projectId": "a576"
     }
   ]
 }
