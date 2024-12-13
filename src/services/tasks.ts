@@ -15,7 +15,7 @@ export const createTask = async (task: {
   const payload = {
     taskName: task.taskName,
     assignee: task.assignee,
-    status: 'Pending',
+    status: 'Активний',
     dueDate: task.dueDate,
     projectId: task.projectId,
   }

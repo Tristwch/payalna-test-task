@@ -15,7 +15,7 @@ export const createProject = async (project: {
     description: project.description || '',
     creationDate: new Date().toISOString().split('T')[0],
     taskCount: 0,
-    status: 'Active',
+    status: 'Активний',
   }
 
   await axiosApiInstance.post('projects', payload)

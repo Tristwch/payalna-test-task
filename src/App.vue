@@ -4,8 +4,8 @@
   <header>
     <div class="wrapper">
       <nav>
-        <RouterLink to="/">Projects</RouterLink>
-        <RouterLink to="/project">Tsks</RouterLink>
+        <RouterLink to="/project">Головна</RouterLink>
+        <RouterLink to="/">Проекти</RouterLink>
       </nav>
     </div>
   </header>

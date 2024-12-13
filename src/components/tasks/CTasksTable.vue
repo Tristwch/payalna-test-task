@@ -7,7 +7,7 @@
   >
     <template #bodyCell="{ column, record }">
       <template v-if="column.key === 'status'">
-        <a-tag :color="record.status === 'Completed' ? 'green' : 'volcano'">
+        <a-tag :color="record.status === 'Активний' ? 'green' : 'blue'">
           {{ record.status }}
         </a-tag>
       </template>
