@@ -18,7 +18,10 @@
 
   #app {
     display: grid;
-    grid-template-columns: 1fr 1fr;
     padding: 0 2rem;
+  }
+
+  .ant-table-column-title {
+    font-weight: 600;
   }
 }
