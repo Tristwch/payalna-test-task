@@ -4,15 +4,6 @@
     :data-source="projectsStore.projects"
     @resizeColumn="handleResizeColumn"
   >
-    <template #headerCell="{ column }">
-      <template v-if="column.key === 'name'">
-        <span>
-          <smile-outlined />
-          Name
-        </span>
-      </template>
-    </template>
-
     <template #bodyCell="{ column, record }">
       <template v-if="column.key === 'projectName'">
         <div class="projectName">
@@ -42,7 +33,9 @@ import type { TableColumnsType } from 'ant-design-vue'
 import { useProjectsStore } from '../../stores/projects'
 import { EllipsisOutlined } from '@ant-design/icons-vue'
 import CProjectModal from './CProjectModal.vue'
-const columns = ref<TableColumnsType>([
+import type { IProjects } from '../..//types/projects'
+
+const columns = ref<TableColumnsType<IProjects>>([
   {
     title: 'Назва проекту',
     dataIndex: 'projectName',
@@ -86,18 +79,38 @@ const columns = ref<TableColumnsType>([
     width: 50,
   },
 ])
+
 const projectsStore = useProjectsStore()
 
 onMounted(() => {
   projectsStore.getAllProjects()
+
+  const savedWidths = JSON.parse(
+    localStorage.getItem('projectsTableColumnWidths') || '{}',
+  ) as Record<string, number>
+  columns.value.forEach((col) => {
+    if (savedWidths[col.key] !== undefined) {
+      col.width = savedWidths[col.key]
+    }
+    if (!col.width) {
+      col.width = 150
+    }
+  })
 })
 
-function openModal(record) {
+function openModal(record: IProjects): void {
   projectsStore.openModal('edit', record)
 }
 
-function handleResizeColumn(w, col) {
-  col.width = w
+function handleResizeColumn(width: number, col: (typeof columns.value)[0]): void {
+  col.width = width
+
+  const savedWidths = JSON.parse(
+    localStorage.getItem('projectsTableColumnWidths') || '{}',
+  ) as Record<string, number>
+  savedWidths[col.key] = width
+
+  localStorage.setItem('projectsTableColumnWidths', JSON.stringify(savedWidths))
 }
 </script>
 

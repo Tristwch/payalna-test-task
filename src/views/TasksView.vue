@@ -12,8 +12,8 @@ const openCreateModal = () => {
 
 <template>
   <div class="header">
-    <h2>Tasks</h2>
-    <a-button type="primary" @click="openCreateModal">Create Task</a-button>
+    <h2>Завдання</h2>
+    <a-button type="primary" @click="openCreateModal">Створити завдання</a-button>
     <CTasksModal />
   </div>
 
