@@ -11,6 +11,22 @@
           {{ record.status }}
         </a-tag>
       </template>
+      <template v-if="column.key === 'toDo' && record.status === 'To Do'">
+        <a-tag color="lightgray">
+          {{ record.status }}
+        </a-tag>
+      </template>
+      <template v-if="column.key === 'inProgress' && record.status === 'In Progress'">
+        <a-tag color="green">
+          {{ record.status }}
+        </a-tag>
+      </template>
+      <template v-if="column.key === 'done' && record.status === 'Done'">
+        <a-tag color="blue">
+          {{ record.status }}
+        </a-tag>
+      </template>
+
       <template v-if="column.key === 'action'">
         <a-dropdown :placement="'left'">
           <a class="ant-dropdown-link" @click.prevent>
@@ -90,14 +106,26 @@ const columns = ref<TableColumnsType<ITask>>([
     resizable: true,
     minWidth: 100,
     filters: [
-      { text: 'Активний', value: 'Активний' },
-      { text: 'Завершений', value: 'Завершений' },
+      { text: 'To Do', value: 'To Do' },
+      { text: 'In Progress', value: 'In Progress' },
+      { text: 'Done', value: 'Done' },
     ],
     onFilter: (value, record) => record.status.indexOf(value) === 0,
     sorter: {
       compare: (a, b) => a.status.localeCompare(b.status),
       multiple: 4,
     },
+    children: [
+      { title: 'To Do', dataIndex: 'doDo', key: 'toDo', resizable: true, minWidth: 100 },
+      {
+        title: 'In progress',
+        dataIndex: 'inProgress',
+        key: 'inProgress',
+        resizable: true,
+        minWidth: 100,
+      },
+      { title: 'Done', dataIndex: 'done', key: 'done', resizable: true, minWidth: 100 },
+    ],
   },
   {
     title: '',
