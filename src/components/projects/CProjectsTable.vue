@@ -125,6 +125,13 @@ const columns = ref<TableColumnsType<IProjects>>([
     },
   },
   {
+    title: 'Опис',
+    dataIndex: 'projectDescription',
+    key: 'projectDescription',
+    resizable: true,
+    width: 200,
+  },
+  {
     title: 'Кількість завдань',
     dataIndex: 'taskCount',
     key: 'taskCount',

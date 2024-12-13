@@ -6,14 +6,15 @@
       "taskCount": 0,
       "status": "Завершений",
       "creationDate": "2024-01-15",
-      "description": ""
+      "projectDescription": "sss"
     },
     {
       "id": "1394",
       "projectName": "Project Alpha 2",
       "taskCount": 0,
       "status": "Активний",
-      "creationDate": "2024-01-15"
+      "creationDate": "2024-01-15",
+      "projectDescription": "345"
     },
     {
       "id": "a576",
@@ -21,7 +22,15 @@
       "taskCount": 1,
       "status": "Активний",
       "creationDate": "2024-12-11",
-      "description": "description"
+      "projectDescription": "description"
+    },
+    {
+      "id": "d26e",
+      "projectName": "123",
+      "projectDescription": "sds",
+      "creationDate": "2024-12-13",
+      "taskCount": 0,
+      "status": "Активний"
     }
   ],
   "tasks": [

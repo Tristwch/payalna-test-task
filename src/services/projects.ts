@@ -12,7 +12,7 @@ export const createProject = async (project: {
 }): Promise<void> => {
   const payload = {
     projectName: project.projectName,
-    description: project.description || '',
+    projectDescription: project.description || '',
     creationDate: new Date().toISOString().split('T')[0],
     taskCount: 0,
     status: 'Активний',

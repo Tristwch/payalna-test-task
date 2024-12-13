@@ -16,7 +16,7 @@
       >
         <a-input v-model:value="formState.projectName" />
       </a-form-item>
-      <a-form-item name="description" label="Опис">
+      <a-form-item name="projectDescription" label="Опис">
         <a-textarea v-model:value="formState.description" />
       </a-form-item>
     </a-form>
@@ -32,7 +32,7 @@ const projectsStore = useProjectsStore()
 const formRef = ref<FormInstance>()
 const formState = reactive({
   projectName: '',
-  description: '',
+  projectDescription: '',
 })
 const { resetFields } = Form.useForm(formState)
 watch(
@@ -40,10 +40,10 @@ watch(
   (newProject) => {
     if (newProject && projectsStore.modalMode === 'edit') {
       formState.projectName = newProject.projectName
-      formState.description = newProject.description || ''
+      formState.projectDescription = newProject.description || ''
     } else {
       formState.projectName = ''
-      formState.description = ''
+      formState.projectDescription = ''
     }
   },
 )
@@ -75,6 +75,7 @@ const onClose = () => {
 }
 
 const resetForm = () => {
+  resetFields()
   formRef.value?.resetFields()
   formState.projectName = ''
   formState.description = ''
