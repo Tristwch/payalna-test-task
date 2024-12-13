@@ -40,12 +40,8 @@ header {
         font-weight: bold;
         transition: color 0.3s ease;
 
-        &:active {
-          border-bottom: 1px solid hsla(160, 100%, 37%);
-        }
-
         &:hover {
-          color: hsla(160, 100%, 37%);
+          color: #1677ff;
         }
       }
     }

@@ -11,14 +11,14 @@
           {{ record.status }}
         </a-tag>
       </template>
-      <template v-if="column.key === 'action'"
-        ><a-dropdown :placement="'left'">
+      <template v-if="column.key === 'action'">
+        <a-dropdown :placement="'left'">
           <a class="ant-dropdown-link" @click.prevent>
             <EllipsisOutlined />
           </a>
           <template #overlay>
             <a-menu>
-              <a-menu-item @click="openModal(record)"> Редагувати </a-menu-item>
+              <a-menu-item @click="openModal(record)">Редагувати</a-menu-item>
               <a-menu-item @click="tasksStore.deleteTask(record.id, projectId)">
                 Видалити
               </a-menu-item>
@@ -28,25 +28,24 @@
       </template>
     </template>
   </a-table>
+
   <CTasksModal />
 </template>
 
 <script lang="ts" setup>
-import { onMounted, ref } from 'vue'
+import { onMounted, ref, reactive } from 'vue'
 import { useRoute } from 'vue-router'
 import { useTasksStore } from '../../stores/tasks'
 import { EllipsisOutlined } from '@ant-design/icons-vue'
 import CTasksModal from './CTasksModal.vue'
-import { TableColumnsType } from 'ant-design-vue'
-
-import { ITasks } from '../../types/tasks'
+import type { TableColumnsType } from 'ant-design-vue'
+import type { ITask } from '../../types/tasks'
 
 const route = useRoute()
 const projectId = ref(route.params.id as string)
-
 const tasksStore = useTasksStore()
 
-const columns = ref<TableColumnsType<ITasks>>([
+const columns = ref<TableColumnsType<ITask>>([
   {
     title: 'Назва завдання',
     dataIndex: 'taskName',
@@ -62,7 +61,6 @@ const columns = ref<TableColumnsType<ITasks>>([
     title: 'ID',
     dataIndex: 'id',
     key: 'id',
-    width: 80,
     resizable: true,
     minWidth: 100,
     sorter: {
@@ -75,7 +73,11 @@ const columns = ref<TableColumnsType<ITasks>>([
     dataIndex: 'assignee',
     key: 'assignee',
     resizable: true,
-    minWidth: 100,
+    filters: [
+      { text: 'Олександр', value: 'Олександр' },
+      { text: 'Андрій', value: 'Андрій' },
+    ],
+    onFilter: (value, record) => record.status.indexOf(value) === 0,
     sorter: {
       compare: (a, b) => a.assignee.localeCompare(b.assignee),
       multiple: 3,
@@ -87,22 +89,14 @@ const columns = ref<TableColumnsType<ITasks>>([
     key: 'status',
     resizable: true,
     minWidth: 100,
+    filters: [
+      { text: 'Активний', value: 'Активний' },
+      { text: 'Завершений', value: 'Завершений' },
+    ],
+    onFilter: (value, record) => record.status.indexOf(value) === 0,
     sorter: {
       compare: (a, b) => a.status.localeCompare(b.status),
       multiple: 4,
-    },
-  },
-  {
-    title: 'Термін виконання',
-    dataIndex: 'dueDate',
-    key: 'dueDate',
-    resizable: true,
-    minWidth: 100,
-    sorter: {
-      compare: (a, b) => {
-        return new Date(a.dueDate).getTime() - new Date(b.dueDate).getTime()
-      },
-      multiple: 5,
     },
   },
   {
@@ -130,10 +124,6 @@ onMounted(() => {
   })
 })
 
-function openModal(record: ITasks): void {
-  tasksStore.openModal('edit', record)
-}
-
 function handleResizeColumn(width: number, col: (typeof columns.value)[0]): void {
   col.width = width
 
@@ -145,4 +135,15 @@ function handleResizeColumn(width: number, col: (typeof columns.value)[0]): void
 
   localStorage.setItem('tasksTableColumnWidths', JSON.stringify(savedWidths))
 }
+
+function openModal(record: ITasks): void {
+  tasksStore.openModal('edit', record)
+}
 </script>
+
+<style lang="scss" scoped>
+.highlight {
+  background-color: rgb(255, 192, 105);
+  padding: 0px;
+}
+</style>
