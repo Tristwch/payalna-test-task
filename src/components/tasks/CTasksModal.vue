@@ -6,6 +6,7 @@
     cancel-text="Cancel"
     @ok="onOk"
     @cancel="onClose"
+    :destroy-on-close="true"
   >
     <a-form ref="formRef" :model="formState" layout="vertical">
       <a-form-item
@@ -79,16 +80,23 @@ const onOk = async () => {
 
     if (tasksStore.modalMode === 'create') {
       await tasksStore.createTask(transformedFormState)
-      formRef.value.resetFields()
+      resetForm()
     } else if (tasksStore.modalMode === 'edit' && tasksStore.taskToEdit) {
       await tasksStore.updateTask(tasksStore.taskToEdit.id, transformedFormState)
+      resetForm()
     }
     tasksStore.closeModal()
   })
 }
 const onClose = () => {
   tasksStore.closeModal()
-  formRef.value.resetFields()
-  resetFields()
+  resetForm()
+}
+
+const resetForm = () => {
+  formRef.value?.resetFields()
+  formState.taskName = ''
+  formState.dueDate = ''
+  formState.assignee = ''
 }
 </script>

@@ -35,8 +35,8 @@ export const useProjectsStore = defineStore('projects', {
     async updateProject(id: string, updatedProject: Partial<IProjects>) {
       try {
         await updateProject(id, updatedProject)
-        await this.getAllProjects()
         this.projectToEdit = null
+        await this.getAllProjects()
       } catch (error) {
         console.error('Failed to update project:', error)
       }
@@ -54,15 +54,14 @@ export const useProjectsStore = defineStore('projects', {
 
       if (mode === 'edit' && project) {
         this.projectToEdit = project
-      }
-
-      if (mode === 'create') {
+      } else {
         this.projectToEdit = null
       }
 
       this.isModalOpen = true
     },
     closeModal() {
+      this.projectToEdit = null
       this.isModalOpen = false
     },
   },

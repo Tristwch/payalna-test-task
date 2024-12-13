@@ -41,6 +41,9 @@ watch(
     if (newProject && projectsStore.modalMode === 'edit') {
       formState.projectName = newProject.projectName
       formState.description = newProject.description || ''
+    } else {
+      formState.projectName = ''
+      formState.description = ''
     }
   },
 )
@@ -56,7 +59,7 @@ const onOk = async () => {
           await projectsStore.createProject(formState)
         }
         projectsStore.closeModal()
-        formRef.value.resetFields()
+        resetForm()
       } catch (error) {
         console.error('Error saving project:', error)
       }
@@ -68,7 +71,12 @@ const onOk = async () => {
 
 const onClose = () => {
   projectsStore.closeModal()
-  formRef.value.resetFields()
-  resetFields()
+  resetForm()
+}
+
+const resetForm = () => {
+  formRef.value?.resetFields()
+  formState.projectName = ''
+  formState.description = ''
 }
 </script>

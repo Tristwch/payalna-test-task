@@ -1,5 +1,10 @@
 <template>
-  <a-table :columns="columns" :data-source="tasksStore.tasks" @resizeColumn="handleResizeColumn">
+  <a-table
+    :columns="columns"
+    :data-source="tasksStore.tasks"
+    @resizeColumn="handleResizeColumn"
+    :pagination="false"
+  >
     <template #bodyCell="{ column, record }">
       <template v-if="column.key === 'status'">
         <a-tag :color="record.status === 'Completed' ? 'green' : 'volcano'">

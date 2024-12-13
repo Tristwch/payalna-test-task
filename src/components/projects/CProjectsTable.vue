@@ -2,6 +2,7 @@
   <a-table
     :columns="columns"
     :data-source="projectsStore.projects"
+    :pagination="false"
     @resizeColumn="handleResizeColumn"
   >
     <template #bodyCell="{ column, record }">

@@ -62,8 +62,8 @@ export const useTasksStore = defineStore('tasks', {
       this.isModalOpen = true
     },
     closeModal() {
-      this.isModalOpen = false
       this.taskToEdit = null
+      this.isModalOpen = false
     },
   },
 })
