@@ -16,7 +16,7 @@
     <template #bodyCell="{ column, record }">
       <template v-if="column.key === 'projectName'">
         <div class="projectName">
-          <RouterLink :to="`/projects/${record.projectId}`"> {{ record.projectName }} </RouterLink>
+          <RouterLink :to="`/projects/${record.id}`"> {{ record.projectName }} </RouterLink>
         </div>
       </template>
       <template v-if="column.key === 'action'"
@@ -39,7 +39,7 @@
 <script lang="ts" setup>
 import { onMounted, ref } from 'vue'
 import type { TableColumnsType } from 'ant-design-vue'
-import { useProjectsStore } from '../store/projects'
+import { useProjectsStore } from '../../stores/projects'
 import { EllipsisOutlined } from '@ant-design/icons-vue'
 import CProjectModal from './CProjectModal.vue'
 const columns = ref<TableColumnsType>([

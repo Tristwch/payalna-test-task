@@ -1,13 +1,31 @@
 <script setup lang="ts">
-import CTasks from '.././components/tasks/CTasks.vue'
+import CTasksTable from '../components/tasks/CTasksTable.vue'
+import CTasksModal from '../components/tasks/CTasksModal.vue'
+import { useTasksStore } from '../stores/tasks'
+
+const tasksStore = useTasksStore()
+
+const openCreateModal = () => {
+  tasksStore.openModal('create')
+}
 </script>
 
 <template>
-  <h2>Tasks</h2>
-  <CTasks />
+  <div class="header">
+    <h2>Tasks</h2>
+    <a-button type="primary" @click="openCreateModal">Create Task</a-button>
+    <CTasksModal />
+  </div>
+
+  <CTasksTable />
 </template>
 
 <style>
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
 .main {
   width: 100%;
   height: 100%;
