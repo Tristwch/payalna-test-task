@@ -4,7 +4,6 @@
   <header>
     <div class="wrapper">
       <nav>
-        <RouterLink to="/project">Головна</RouterLink>
         <RouterLink to="/">Проекти</RouterLink>
       </nav>
     </div>

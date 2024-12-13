@@ -23,14 +23,6 @@
       "status": "Активний",
       "creationDate": "2024-12-11",
       "projectDescription": "description"
-    },
-    {
-      "id": "d26e",
-      "projectName": "123",
-      "projectDescription": "sds",
-      "creationDate": "2024-12-13",
-      "taskCount": 0,
-      "status": "Активний"
     }
   ],
   "tasks": [
@@ -38,7 +30,7 @@
       "id": "2f54",
       "taskName": "test",
       "assignee": "Андрій",
-      "status": "Завершений",
+      "status": "Done",
       "dueDate": "2024-12-15",
       "projectId": "03a3"
     },
@@ -46,7 +38,7 @@
       "id": "f9cf",
       "taskName": "test",
       "assignee": "Олександр",
-      "status": "Завершений",
+      "status": "To Do",
       "dueDate": "2024-12-17",
       "projectId": "1394"
     },
@@ -54,7 +46,7 @@
       "id": "7d2f",
       "taskName": "test",
       "assignee": "Олександр",
-      "status": "Активний",
+      "status": "To Do",
       "dueDate": "2024-12-29",
       "projectId": "a576"
     },
@@ -62,7 +54,7 @@
       "id": "1821",
       "taskName": "иви",
       "assignee": "Андрій",
-      "status": "Активний",
+      "status": "In progress",
       "dueDate": "2024-12-14",
       "projectId": "a576"
     },
@@ -70,9 +62,33 @@
       "id": "706d",
       "taskName": "test",
       "assignee": "Олександр",
-      "status": "Активний",
+      "status": "To Do",
       "dueDate": "2025-01-01",
       "projectId": "03a3"
+    },
+    {
+      "id": "c33d",
+      "taskName": "test",
+      "assignee": "Олександр",
+      "status": "Done",
+      "dueDate": "2024-12-14",
+      "projectId": "a576"
+    },
+    {
+      "id": "6f95",
+      "taskName": "test",
+      "assignee": "Олександр",
+      "status": "In progress",
+      "dueDate": "2024-12-27",
+      "projectId": "a576"
+    },
+    {
+      "id": "65c4",
+      "taskName": "test",
+      "assignee": "Олександр",
+      "status": "To Do",
+      "dueDate": "2024-12-27",
+      "projectId": "a576"
     }
   ]
 }

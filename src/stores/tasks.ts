@@ -50,6 +50,11 @@ export const useTasksStore = defineStore('tasks', {
         console.error('Failed to delete task:', error)
       }
     },
+
+    setTasks(newTasks: ITask[]) {
+      this.tasks = newTasks
+    },
+
     openModal(mode: 'create' | 'edit', task?: ITask) {
       this.modalMode = mode
 
