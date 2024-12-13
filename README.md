@@ -1,45 +1,73 @@
-# .
+# Проєкт: Управління проектами та завданнями
 
-This template should help get you started developing with Vue 3 in Vite.
+## Команди для запуску
 
-## Recommended IDE Setup
+1. Встановлення залежностей:
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
-
-## Type Support for `.vue` Imports in TS
-
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) to make the TypeScript language service aware of `.vue` types.
-
-## Customize configuration
-
-See [Vite Configuration Reference](https://vite.dev/config/).
-
-## Project Setup
-
-```sh
-npm install
+```bash
+yarn install
 ```
 
-### Compile and Hot-Reload for Development
+2. Запуск локального сервера для розробки:
 
-```sh
-npm run dev
+```bash
+yarn dev
 ```
 
-### Type-Check, Compile and Minify for Production
+3. Запуск JSON-сервера для мокових API:
 
-```sh
-npm run build
+```bash
+yarn json-serve
 ```
 
-### Run Unit Tests with [Vitest](https://vitest.dev/)
+---
 
-```sh
-npm run test:unit
-```
+## Загальний опис застосунку
 
-### Lint with [ESLint](https://eslint.org/)
+Застосунок для управління проектами та завданнями всередині цих проектів.
 
-```sh
-npm run lint
-```
+### Реалізовані основні можливості:
+
+#### Головна сторінка (Таблиця проектів):
+
+- **Колонки:**
+  - ID проекту
+  - Назва проекту
+  - Опис проекту
+  - Кількість завдань
+  - Статус
+  - Дата створення
+- **Можливості таблиці:**
+  - Сортування за колонками (ID, назвою, кількістю завдань, статусом).
+  - Фільтрація за назвою і статусом (пошук за рядком і список, що випадає).
+  - Зміна ширини колонок шляхом перетягування.
+- **Функціонал:**
+  - Кнопка "Додати проект": відкриває модальне вікно для створення проекту.
+    - **Поля форми:**
+      - Назва проекту (обов'язкове поле).
+      - Опис проекту.
+    - Після збереження проект додається до списку.
+  - Перехід на сторінку конкретного проекту за кліком на назву завдання.
+
+#### Сторінка проекту (Список завдань):
+
+- **Колонки:**
+  - ID завдання
+  - Назва завдання
+  - Виконавець
+  - Статус
+  - Термін виконання
+- **Можливості таблиці:**
+  - Зміна порядку завдань через drag-and-drop.
+  - Drag-and-drop для зміни статусу завдання між секціями ("To Do", "In Progress", "Done").
+  - Сортування за терміном виконання і статусом.
+  - Фільтрація за ім'ям виконавця і статусом.
+  - Зміна ширини колонок.
+- **Функціонал:**
+  - Кнопка "Додати завдання": відкриває модальне вікно для створення завдання.
+    - **Поля форми:**
+      - Назва завдання.
+      - Виконавець (список, що випадає).
+      - Статус.
+      - Термін виконання.
+    - Валідація полів перед збереженням.
