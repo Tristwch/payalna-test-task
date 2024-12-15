@@ -1,6 +1,7 @@
 import { defineStore } from 'pinia'
 import { getProjects, createProject, deleteProject, updateProject } from '../services/projects'
 import type { IProjects } from '@/types/projects'
+import { message } from 'ant-design-vue'
 
 export const useProjectsStore = defineStore('projects', {
   state: () => ({
@@ -29,7 +30,10 @@ export const useProjectsStore = defineStore('projects', {
       try {
         await createProject(newProject)
         await this.getAllProjects()
+        message.success('Проект створено!')
       } catch (error) {
+        // месседж має повертати юзеру інформативну причину, фле в рамках тестового я вважаю тут норм
+        message.error('Не вдалось створити проект')
         console.error('Failed to add project:', error)
       }
     },
@@ -38,7 +42,10 @@ export const useProjectsStore = defineStore('projects', {
         await updateProject(id, updatedProject)
         this.projectToEdit = null
         await this.getAllProjects()
+
+        message.success('Проект відредаговано!')
       } catch (error) {
+        message.error('Не вдалось відредагувати проект')
         console.error('Failed to update project:', error)
       }
     },
@@ -46,7 +53,9 @@ export const useProjectsStore = defineStore('projects', {
       try {
         await deleteProject(id)
         await this.getAllProjects()
+        message.success('Проект видалено!')
       } catch (error) {
+        message.error('Не вдалось видалити проект')
         console.error('Failed to delete project:', error)
       }
     },
