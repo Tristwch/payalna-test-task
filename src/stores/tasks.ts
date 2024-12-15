@@ -1,6 +1,7 @@
 import { defineStore } from 'pinia'
 import { getTasks, createTask, updateTask, deleteTask } from '../services/tasks'
 import type { ITask } from '@/types/tasks'
+import { message } from 'ant-design-vue'
 
 export const useTasksStore = defineStore('tasks', {
   state: () => ({
@@ -28,7 +29,10 @@ export const useTasksStore = defineStore('tasks', {
       try {
         await createTask(newTask)
         await this.getAllTasks(newTask.projectId)
+        message.success('Завдання створено!')
       } catch (error) {
+        // месседж має повертати юзеру інформативну причину, фле в рамках тестового я вважаю тут норм
+        message.error('Не вдалось створити завдання')
         console.error('Failed to add task:', error)
       }
     },
@@ -37,7 +41,9 @@ export const useTasksStore = defineStore('tasks', {
       try {
         await updateTask(id, updatedTask)
         await this.getAllTasks(updatedTask.projectId)
+        message.success('Завдання відредаговано!')
       } catch (error) {
+        message.error('Не вдалось відредагувати завдання')
         console.error('Failed to update task:', error)
       }
     },
@@ -46,7 +52,9 @@ export const useTasksStore = defineStore('tasks', {
       try {
         await deleteTask(id)
         await this.getAllTasks(projectId)
+        message.success('Завдання видалено!')
       } catch (error) {
+        message.error('Не вдалось видалити завдання')
         console.error('Failed to delete task:', error)
       }
     },
