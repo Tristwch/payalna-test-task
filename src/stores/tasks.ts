@@ -31,7 +31,6 @@ export const useTasksStore = defineStore('tasks', {
         await this.getAllTasks(newTask.projectId)
         message.success('Завдання створено!')
       } catch (error) {
-        // месседж має повертати юзеру інформативну причину, фле в рамках тестового я вважаю тут норм
         message.error('Не вдалось створити завдання')
         console.error('Failed to add task:', error)
       }
