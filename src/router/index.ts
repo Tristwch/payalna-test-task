@@ -10,6 +10,11 @@ const router = createRouter({
       component: ProjectsView,
     },
     {
+      path: '/',
+      name: 'dashboard',
+      component: () => import('../views/DashboardView.vue'),
+    },
+    {
       path: '/projects/:id',
       name: 'project',
       component: () => import('../views/TasksView.vue'),
